@@ -1,30 +1,30 @@
 import Foundation
 
-typealias Byte = UInt8
-protocol BinaryDataSource {
+public typealias Byte = UInt8
+public protocol BinaryDataSource {
     var current: Byte {get}
     var hasData: Bool {get}
     var offset: Int {get}
     func advance()
     func read() -> Byte?
 }
-class ArrayDataSource: BinaryDataSource {
-    var current: Byte {
+public class ArrayDataSource: BinaryDataSource {
+    public var current: Byte {
         return buffer[bufferIndex]
     }
-    var offset: Int {
+    public var offset: Int {
         return bufferIndex
     }
-    func read() -> Byte? {
+    public func read() -> Byte? {
         defer {
             advance()
         }
         return current
     }
-    func advance() {
+    public func advance() {
         bufferIndex += 1
     }
-    var hasData: Bool {
+    public var hasData: Bool {
         return bufferIndex < buffer.count
     }
     var bufferIndex = 0
@@ -33,11 +33,11 @@ class ArrayDataSource: BinaryDataSource {
         self.buffer = buffer
     }
 }
-class StreamDataSource: BinaryDataSource {
-    var current: Byte {
+public class StreamDataSource: BinaryDataSource {
+    public var current: Byte {
         return buffer[bufferIndex]
     }
-    func read() -> Byte? {
+    public func read() -> Byte? {
         if !hasData {
             return nil
         }
@@ -45,8 +45,8 @@ class StreamDataSource: BinaryDataSource {
         advance()
         return byte
     }
-    var hasData: Bool
-    func advance() {
+    public var hasData: Bool
+    public func advance() {
         offset += 1
         if bufferIndex + 1 < dataLen {
             bufferIndex += 1
@@ -57,7 +57,7 @@ class StreamDataSource: BinaryDataSource {
             }
         }
     }
-    var offset = 0
+    public var offset = 0
     let stream: InputStream
     var buffer: [UInt8]
     var dataLen: Int = 0
