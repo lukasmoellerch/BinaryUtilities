@@ -62,7 +62,7 @@ public class StreamDataSource: BinaryDataSource {
     var buffer: [UInt8]
     var dataLen: Int = 0
     var bufferIndex: Int = 0
-    init?(path: String, bufferSize: Int = 1024) {
+    public init?(path: String, bufferSize: Int = 1024) {
         guard let stream = InputStream(fileAtPath: path) else {
             return nil
         }
@@ -72,7 +72,7 @@ public class StreamDataSource: BinaryDataSource {
         stream.open()
         readFromBuffer()
     }
-    init(data: Data, bufferSize: Int = 1024) {
+    public init(data: Data, bufferSize: Int = 1024) {
         let stream = InputStream(data: data)
         buffer = [UInt8](repeating: 0, count: bufferSize)
         self.stream = stream
