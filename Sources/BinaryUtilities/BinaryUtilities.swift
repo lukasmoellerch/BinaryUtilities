@@ -29,7 +29,7 @@ public class ArrayDataSource: BinaryDataSource {
     }
     var bufferIndex = 0
     let buffer: [UInt8]
-    init(buffer: [UInt8]) {
+    public init(buffer: [UInt8]) {
         self.buffer = buffer
     }
 }
